@@ -43,7 +43,7 @@ jobs:
           az rest --method POST \
             --url "${FOUNDRY_ENDPOINT}/agents/customer-loyalty/versions?api-version=2025-11-15-preview" \
             --headers "Content-Type=application/json" \
-            --resource "https://ai.azure.com" \
+            --resource "https://cognitiveservices.azure.com" \
             --body @/tmp/agent-payload.json
 
           echo "Customer loyalty agent deployed successfully."

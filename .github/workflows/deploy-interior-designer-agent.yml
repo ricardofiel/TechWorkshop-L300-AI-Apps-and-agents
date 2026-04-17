@@ -43,7 +43,7 @@ jobs:
           az rest --method POST \
             --url "${FOUNDRY_ENDPOINT}/agents/interior-designer/versions?api-version=2025-11-15-preview" \
             --headers "Content-Type=application/json" \
-            --resource "https://ai.azure.com" \
+            --resource "https://cognitiveservices.azure.com" \
             --body @/tmp/agent-payload.json
 
           echo "Interior designer agent deployed successfully."
