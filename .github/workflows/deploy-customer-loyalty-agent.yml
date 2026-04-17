@@ -39,11 +39,14 @@ jobs:
              '.definition.model = $model | .definition.instructions = $instructions' \
              src/infra/agents/customer-loyalty.json > /tmp/agent-payload.json
 
+          # Get token for the Foundry data plane
+          TOKEN=$(az account get-access-token --resource "https://ai.azure.com" --query accessToken -o tsv)
+
           # Create/update the agent version via Foundry REST API
-          az rest --method POST \
-            --url "${FOUNDRY_ENDPOINT}/agents/customer-loyalty/versions?api-version=2025-11-15-preview" \
-            --headers "Content-Type=application/json" \
-            --resource "https://cognitiveservices.azure.com" \
-            --body @/tmp/agent-payload.json
+          curl -sf -X POST \
+            "${FOUNDRY_ENDPOINT}/agents/customer-loyalty/versions?api-version=2025-11-15-preview" \
+            -H "Authorization: Bearer $TOKEN" \
+            -H "Content-Type: application/json" \
+            -d @/tmp/agent-payload.json
 
           echo "Customer loyalty agent deployed successfully."
